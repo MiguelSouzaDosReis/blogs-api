@@ -6,10 +6,10 @@ const createUsers = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   await Users.create({ displayName, email, password, image });
   const jwtConfig = {
-    expiresIn: '7m',
+    expiresIn: '7d',
     algorithm: 'HS256',
   };
-  const jwtToken = jwt.sign({ displayName, email, password, image }, 'segredo', jwtConfig);
+  const jwtToken = jwt.sign({ displayName, email }, 'segredo', jwtConfig);
   return res.status(201).json({ token: jwtToken });
 };
 

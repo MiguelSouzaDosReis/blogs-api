@@ -36,7 +36,8 @@ const verifyToken = async (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization) { return res.status(401).json({ message: 'Token not found' }); }
   try {
-   jwt.verify(authorization, 'segredo');
+   const verifiy = jwt.verify(authorization, 'segredo');
+   req.tokenData = verifiy;
  } catch (error) {
   return res.status(401).json({ message: 'Expired or invalid token' }); 
  }
