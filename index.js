@@ -17,6 +17,7 @@ app.post('/login', validEmailLogin, validPasswordLogin, Login.createLogin);
 app.get('/user', verifyToken, Users.everthingUsers);
 app.get('/user/:id', verifyToken, Users.everthingIdUsers);
 app.post('/categories', validName, verifyToken, Categories.createCategories);
+app.get('/categories', verifyToken, Categories.everthingCategories);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
