@@ -1,5 +1,6 @@
 const messageDisplay = '"displayName" length must be at least 8 characters long';
 const messagePassword = '"password" length must be 6 characters long';
+const jwt = require('jsonwebtoken');
 const { Users } = require('../models');
 
 const validDisplayName = async (req, res, next) => {
@@ -30,4 +31,16 @@ const validPassword = async (req, res, next) => {
   }
 next();
 };
-module.exports = { validDisplayName, validEmail, validPassword };
+
+const verifyToken = async (req, res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization) { return res.status(401).json({ message: 'Token not found' }); }
+  try {
+   jwt.verify(authorization, 'segredo');
+ } catch (error) {
+  return res.status(401).json({ message: 'Expired or invalid token' }); 
+ }
+next();
+};
+
+module.exports = { validDisplayName, validEmail, validPassword, verifyToken };

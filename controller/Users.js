@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { Users } = require('../models');
+const notExist = 'User does not exist'
 
 const createUsers = async (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -11,4 +12,16 @@ const createUsers = async (req, res) => {
   const jwtToken = jwt.sign({ displayName, email, password, image }, 'segredo', jwtConfig);
   return res.status(201).json({ token: jwtToken });
 };
-module.exports = { createUsers }; 
+
+const everthingUsers = async (_req, res) => {
+  const everthing = await Users.findAll();
+  return res.status(200).json(everthing);
+};
+
+const everthingIdUsers = async (req, res) => {
+  const { id } = req.params;
+  const everthingId = await Users.findOne({ where: { id } });
+  if (everthingId === undefined) { return res.status(404).json({ message: notExist }); }
+  res.status(200).json(everthingId); 
+};
+module.exports = { createUsers, everthingUsers, everthingIdUsers }; 
