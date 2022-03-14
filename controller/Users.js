@@ -1,6 +1,6 @@
+const notExist = 'User does not exist';
 const jwt = require('jsonwebtoken');
 const { Users } = require('../models');
-const notExist = 'User does not exist'
 
 const createUsers = async (req, res) => {
   const { displayName, email, password, image } = req.body;
@@ -21,7 +21,7 @@ const everthingUsers = async (_req, res) => {
 const everthingIdUsers = async (req, res) => {
   const { id } = req.params;
   const everthingId = await Users.findOne({ where: { id } });
-  if (everthingId === undefined) { return res.status(404).json({ message: notExist }); }
+  if (everthingId === null) { return res.status(404).json({ message: notExist }); }
   res.status(200).json(everthingId); 
 };
 module.exports = { createUsers, everthingUsers, everthingIdUsers }; 

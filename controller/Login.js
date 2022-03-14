@@ -9,6 +9,6 @@ const createLogin = async (req, res) => {
     algorithm: 'HS256',
   };
   const jwtToken = jwt.sign({ email, password }, 'segredo', jwtConfig);
-  return res.status(201).json({ token: jwtToken });
+  return res.status(200).json({ token: jwtToken });
 };
 module.exports = { createLogin }; 
