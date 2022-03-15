@@ -1,4 +1,4 @@
-const { BlogPosts, Users, PostsCategories } = require('../models');
+const { BlogPosts, Users, PostsCategories, Categories } = require('../models');
 
 const createBlogPosts = async (req, res) => {
   const { title, content, categoryIds } = req.body;
@@ -9,11 +9,19 @@ const createBlogPosts = async (req, res) => {
 
   const create = await BlogPosts.create({ title, content, userId });
   const { dataValues: { id } } = create;
-  const ArrayDePromesa = categoryIds.map(((element) =>
+  const ArrayOfPromise = categoryIds.map(((element) =>
     PostsCategories.create({ categoryId: element, postId: id })));
-  await Promise.all(ArrayDePromesa);
+  await Promise.all(ArrayOfPromise);
 
   return res.status(201).json(create);
 };
 
-module.exports = { createBlogPosts };
+const everthingBlogPosts = async (_req, res) => {
+  const modelCategories = { model: Categories, as: 'categories', through: { attributes: [] } };
+  const modelUsers = { model: Users, as: 'user' };
+  const everthing = await BlogPosts.findAll({ include: [modelUsers, modelCategories] });
+
+  return res.status(200).json(everthing);
+};
+
+module.exports = { createBlogPosts, everthingBlogPosts };

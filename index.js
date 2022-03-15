@@ -4,7 +4,7 @@ const { validDisplayName, validEmail, validPassword, verifyToken } = require('./
 const { validEmailLogin, validPasswordLogin } = require('./middleware/Login');
 const { validName } = require('./middleware/Categories');
 const { validCategoryIds, validTitle, validContent } = require('./middleware/BlogPost');
-const { createBlogPosts } = require('./controller/BlogPosts');
+const { createBlogPosts, everthingBlogPosts } = require('./controller/BlogPosts');
 
 const app = express();
 app.use(bodyParser.json());
@@ -21,6 +21,7 @@ app.get('/user/:id', verifyToken, Users.everthingIdUsers);
 app.post('/categories', validName, verifyToken, Categories.createCategories);
 app.get('/categories', verifyToken, Categories.everthingCategories);
 app.post('/post', verifyToken, validCategoryIds, validTitle, validContent, createBlogPosts);
+app.get('/post', verifyToken, everthingBlogPosts);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
