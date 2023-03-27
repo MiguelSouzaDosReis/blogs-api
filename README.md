@@ -1,10 +1,8 @@
 # Project Blogs Api
 
-Neste projeto eu aprendi a como montar uma API com a verificação e autenticação do token realizando os requisito que a Trybe pediu
+Nesse projeto, pude aprimorar meus conhecimentos na construção de APIs REST utilizando Node.js e Express. Aprendendo a implementação da verificação e autenticação do token, garantindo maior segurança aos usuários da aplicação
 
 # Requisitos do Projeto
-
-
 
 ### 1 - Sua aplicação deve ter o endpoint POST `/user`
 
